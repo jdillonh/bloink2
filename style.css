@@ -1,0 +1,41 @@
+
+body {
+    background-color: beige;
+    overflow: auto;
+    padding: 0;
+    margin: 0;
+}
+
+#canvas-wrapper{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    background-color: grey;
+    z-index: -10;
+
+}
+
+#game-elements {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+.game-object {
+    position: absolute;
+    z-index: 10;
+    min-width: 10px;
+    min-height: 10px;
+}
+
+.game-object:active {
+    background-color: red;
+    z-index: 200;
+}
+
+.paddle {
+    background-color: turquoise;
+}
