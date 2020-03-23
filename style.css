@@ -39,3 +39,8 @@ body {
 .paddle {
     background-color: turquoise;
 }
+
+.circle-emitter {
+    border-radius: 50%;
+    background-color: teal;
+}

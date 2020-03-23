@@ -83,6 +83,11 @@ function draw() {
 
 }
 
+// p5 callback
+function windowResized() {
+    resizeCanvas(window.innerWidth, window.innerHeight);
+}
+
 //function mousePressed() {
 //    if (Math.random() < 0.5) {
 //	new Paddle(mouseX, mouseY, World, Obj)
