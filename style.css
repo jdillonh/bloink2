@@ -31,11 +31,17 @@ body {
     min-width: 10px;
     min-height: 10px;
 }
-
-.game-object:active {
-    background-color: red;
-    z-index: 100;
+.game-object:hover {
+    background-color: pink;
+    cursor: grab;
 }
+
+.game-object.active {
+    background-color: red !important;
+    z-index: 200;
+    cursor: grabbing;
+}
+
 
 .paddle {
     background-color: turquoise;
@@ -88,20 +94,29 @@ body {
     border-radius: 50%;
     background-color: white;
 }
-
+.button-shelf {
+    pointer-events: none;
+}
 #left-buttons {
     position: absolute;
     top: 0;
     left: 0;
     z-index: 200;
-
 }
 
-#left-buttons button {
-    /* banish defaults */
+button {
     box-shadow: 0px 0px 0px transparent;
     border: 0px solid transparent;
     text-shadow: 0px 0px 0px transparent;
+    pointer-events: all;
+}
+button < * {
+    pointer-events: none;
+}
+
+button:focus {outline:0;}
+
+#left-buttons button {
 
     z-index: 200;
     display: block;
@@ -116,7 +131,6 @@ body {
 
 #left-buttons button:hover {
     border: 10px solid white;
-    box-shadow: 10px;
     cursor: grab;
 }
 
@@ -125,11 +139,6 @@ body {
 }
 
 #right-buttons button {
-    /* banish defaults */
-    box-shadow: 0px 0px 0px transparent;
-    border: 0px solid transparent;
-    text-shadow: 0px 0px 0px transparent;
-
     position: relative;
     float: right;
     z-index: 200;
@@ -140,14 +149,19 @@ body {
     width: 75px;
     height: 75px;
     border-radius: 50%;
+    border: 10px solid transparent;
 
 }
 
 #right-buttons button:hover {
     cursor: pointer;
+    border: 10px solid white;
 }
 
 #gear {
+    position: relative;
+    right: 1px;
+    top: 1px;
     color: white;
     fill: white;
     width: 45px;
@@ -156,7 +170,7 @@ body {
     cursor: pointer;
 }
 
-#gear:hover {
+#options-button:hover #gear {
     transform: rotate(180deg);
     transition: all 0.8s ease-in-out 0s;
 }

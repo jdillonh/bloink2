@@ -57,6 +57,7 @@ function setup() {
     M.World.add(World, MouseConstraint);
     CollisionHandler.setup();
     KeyHandler.setup();
+    ButtonHandler.setup();
 
     for( let i = 0; i < 10; i++ ) {
 	new Paddle(Math.random()*width, Math.random()*height, World, Obj);
