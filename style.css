@@ -1,6 +1,7 @@
 
 body {
     background-color: beige;
+    color: white;
     overflow: auto;
     padding: 0;
     margin: 0;
@@ -33,14 +34,135 @@ body {
 
 .game-object:active {
     background-color: red;
-    z-index: 200;
+    z-index: 100;
 }
 
 .paddle {
     background-color: turquoise;
 }
 
+#example-paddle {
+    position: relative;
+    right: 2px;
+    transform: rotate(-30deg);
+    width: 40px;
+    height: 15px;
+
+    background-color: turquoise;
+    border-radius: 5px;
+    border: 3px solid white;
+}
+
 .circle-emitter {
     border-radius: 50%;
     background-color: teal;
 }
+
+.little-circle {
+    position: relative;
+    width: 15px;
+    height: 15px;
+    top: 10px;
+    left: 20px;
+    border-radius: 50%;
+    background-color: white;
+}
+
+#example-circle-emitter {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    transform: rotate(60deg);
+    border-radius: 50%;
+    background-color: teal;
+    border: 3px solid white;
+    left: -3px;
+    top: 1px;
+}
+#example-little-circle {
+    position: relative;
+    width: 10px;
+    height: 10px;
+    top: 5px;
+    left: 11px;
+    border-radius: 50%;
+    background-color: white;
+}
+
+#left-buttons {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 200;
+
+}
+
+#left-buttons button {
+    /* banish defaults */
+    box-shadow: 0px 0px 0px transparent;
+    border: 0px solid transparent;
+    text-shadow: 0px 0px 0px transparent;
+
+    z-index: 200;
+    display: block;
+    margin-top: 2em;
+    margin-left: 2em;
+    background-color: blue;
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    border: 10px solid transparent;
+}
+
+#left-buttons button:hover {
+    border: 10px solid white;
+    box-shadow: 10px;
+    cursor: grab;
+}
+
+#left-buttons button:active {
+    cursor: grabbing;
+}
+
+#right-buttons button {
+    /* banish defaults */
+    box-shadow: 0px 0px 0px transparent;
+    border: 0px solid transparent;
+    text-shadow: 0px 0px 0px transparent;
+
+    position: relative;
+    float: right;
+    z-index: 200;
+    display: block;
+    margin-top: 2em;
+    margin-right: 2em;
+    background-color: blue;
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+
+}
+
+#right-buttons button:hover {
+    cursor: pointer;
+}
+
+#gear {
+    color: white;
+    fill: white;
+    width: 45px;
+    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(108deg) brightness(104%) contrast(104%);
+    transition: all 0.8s ease-in-out 0s;
+    cursor: pointer;
+}
+
+#gear:hover {
+    transform: rotate(180deg);
+    transition: all 0.8s ease-in-out 0s;
+}
+
+svg, path {
+    z-index: 0;
+    pointer-events: none;
+}
+
