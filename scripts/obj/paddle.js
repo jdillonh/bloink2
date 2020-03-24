@@ -32,12 +32,10 @@ class WorldObj {
     }
 
     OnMousePickup() {
-	this.domElement.focus()
 	this.domElement.classList.add("active");
     }
 
     OnMouseDrop() {
-	this.domElement.blur()
 	this.domElement.classList.remove("active");
     }
 
