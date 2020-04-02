@@ -59,6 +59,7 @@ class CircleProjectile extends WorldObj {
 	this.tickable = false;
 	this.static = false;
 	this.hasGravity = true;
+	this.hasDomElement = false;
 	this.rad = 10;
 	this.domElement.className = "game-object circle-projectile"
 	this.domElement.style.width = this.rad*2 + "px";
@@ -76,10 +77,10 @@ class CircleProjectile extends WorldObj {
     }
 
     draw() {
-	let pos = this.getPosition();
-	let domX, domY;
-	domX = pos.x - this.rad;
-	domY = pos.y - this.rad ;
+	//let pos = this.getPosition();
+	//let domX, domY;
+	//domX = pos.x - this.rad;
+	//domY = pos.y - this.rad ;
 	//this.domElement.style.transform =
 	//    "translate("+ domX + "px," + domY + "px" + ") " +
 	//    "rotate(" + pos.a*180/Math.PI +"deg )"

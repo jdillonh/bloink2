@@ -96,8 +96,8 @@ body {
 }
 
 .circle-projectile {
-    border-radius: 50%;
-    background-color: #FF07;
+    /* removed */
+    background-color: red;
 }
 
 .button-shelf {

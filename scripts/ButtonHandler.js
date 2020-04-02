@@ -21,10 +21,6 @@ var ButtonHandler = {
 		     "mousedown",
 		     {pointerX : x, pointerY : y})
 	}
-	window.setTimeout( () => {
-	    console.log("focusing")
-	    newbie.domElement.focus();
-	}, 0);
     },
 }
 

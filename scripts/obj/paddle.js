@@ -4,24 +4,28 @@ class WorldObj {
 	this.body;
 	this.domElement;
 	this.outline = 10;
-	this.rotSpeed = 0.01;
 	this.tickable = false; //default
 	this.static = true;
 	this.hasGravity = false;
-	
-	var newDiv = document.createElement("DIV");
-	this.domElement = document.getElementById("game-elements").appendChild(newDiv);
+	this.hasDomElement = true;
+	this.domElement = document.createElement("DIV");
 
 	this.domElement.ondragstart = () => false;
 	this.domElement.onwheel = (e) => {
 	    let dx = e.deltaX;
 	    let dy = e.deltaY;
-	    M.Body.setAngularVelocity(this.body, dy* this.rotSpeed)
+	    M.Body.rotate(this.body, dy*constants.rotSpeed);
 	}
 
     }
 
     addToWorld(body, physWorld, Obj) {
+	if( this.hasDomElement ) {
+	    document.getElementById("game-elements").appendChild(this.domElement);
+	}
+	else {
+	    this.domElement = null;
+	}
 	this.body = body;
 	this.body.parentObj = this;
 	if( this.static ) {

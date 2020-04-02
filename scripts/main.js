@@ -8,6 +8,7 @@
 const constants = {
     gravityStrength : 0.001,
     launchVelocity : .15,
+    rotSpeed : 0.1,
 }
 
 var M = Matter;
