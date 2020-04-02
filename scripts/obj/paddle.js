@@ -5,6 +5,9 @@ class WorldObj {
 	this.domElement;
 	this.outline = 10;
 	this.rotSpeed = 0.01;
+	this.tickable = false; //default
+	this.static = true;
+	this.hasGravity = false;
 	
 	var newDiv = document.createElement("DIV");
 	this.domElement = document.getElementById("game-elements").appendChild(newDiv);
@@ -21,8 +24,22 @@ class WorldObj {
     addToWorld(body, physWorld, Obj) {
 	this.body = body;
 	this.body.parentObj = this;
+	if( this.static ) {
+	    M.Body.setStatic(this.body, true)
+	}
+
 	M.World.addBody(physWorld, this.body);
 	Obj.push(this);
+	if( this.tickable ) {
+	    Tickables.push(this);
+	}
+	if( this.hasGravity ) {
+	    GravityAffectees.push(this);
+	}
+    }
+
+    removeFromWorld() {
+	// TODO
     }
 
     getPosition () {
@@ -33,10 +50,12 @@ class WorldObj {
 
     OnMousePickup() {
 	this.domElement.classList.add("active");
+	M.Body.setStatic(this.body, false);
     }
 
     OnMouseDrop() {
 	this.domElement.classList.remove("active");
+	M.Body.setStatic(this.body, true);
     }
 
 }

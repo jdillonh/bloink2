@@ -2,8 +2,10 @@
 
 var ButtonHandler = {
     setup : function () {
-	let el = document.getElementById("paddle-button")
-	el.onmousedown = this.makeSpawnFunc(Paddle, el);
+	let paddleEl = document.getElementById("paddle-button")
+	paddleEl.onmousedown = this.makeSpawnFunc(Paddle, paddleEl);
+	let circEl = document.getElementById("circle-emitter-button")
+	circEl.onmousedown = this.makeSpawnFunc(CircleEmitter, circEl);
 
     },
     makeSpawnFunc : function (newClass, buttonEl) {

@@ -94,6 +94,12 @@ body {
     border-radius: 50%;
     background-color: white;
 }
+
+.circle-projectile {
+    border-radius: 50%;
+    background-color: #FF07;
+}
+
 .button-shelf {
     pointer-events: none;
 }
