@@ -2,9 +2,35 @@
 body {
     background-color: beige;
     color: white;
-    overflow: auto;
+    overflow: hidden;
     padding: 0;
     margin: 0;
+    font-family: sans-serif;
+}
+
+#audio-pls-wrapper {
+    position: absolute;
+    width: 100%;
+    z-index: 300;
+    background-color: #3338;
+    top: 0;
+    bottom: 0;
+}
+#turn-on-audio-pls {
+    position: relative;
+    width: 6em;
+    padding: 20px;
+    background-color: lightpink;
+    margin: auto;
+    top: 50px;
+}
+
+#turn-on-audio-pls > button {
+    margin-top: 10px;
+}
+
+#turn-on-audio-pls > button:active{
+    background-color: lightgrey;
 }
 
 #canvas-wrapper{

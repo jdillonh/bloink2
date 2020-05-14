@@ -2,6 +2,7 @@ class CircleEmitter extends WorldObj {
 
     constructor (x, y, physWorld, Obj) {
 	super()
+	this.type = WorldObjType.circleEmmiter;
 	this.tickable = true;
 	this.rad = 40;
 	this.domElement.className = "game-object circle-emitter"
@@ -56,6 +57,7 @@ class CircleEmitter extends WorldObj {
 class CircleProjectile extends WorldObj {
     constructor(x, y, physWorld, Obj) {
 	super()
+	this.type = WorldObjType.circleProjectile;
 	this.tickable = false;
 	this.static = false;
 	this.hasGravity = true;
@@ -77,14 +79,6 @@ class CircleProjectile extends WorldObj {
     }
 
     draw() {
-	//let pos = this.getPosition();
-	//let domX, domY;
-	//domX = pos.x - this.rad;
-	//domY = pos.y - this.rad ;
-	//this.domElement.style.transform =
-	//    "translate("+ domX + "px," + domY + "px" + ") " +
-	//    "rotate(" + pos.a*180/Math.PI +"deg )"
 	circle(this.body.position.x, this.body.position.y, this.rad*2);
-
     }
 }

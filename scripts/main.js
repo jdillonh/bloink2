@@ -1,14 +1,20 @@
-/*
-  idea:
-  when you are moving a body with the mouseconstraint
-  let it be non-static and have NO collisions 
-  afterwards make it static again and allow collisions
-*/
-
 const constants = {
+    maxVelocity : 20, // the max velocity you *expect* 
     gravityStrength : 0.001,
-    launchVelocity : .15,
-    rotSpeed : 0.1,
+    launchVelocity : .3,
+    rotSpeed : 0.005,
+    voicesPerType : 20,
+    perVoiceGainSettings : {
+	gain : 0.5 ,
+	convert : true
+    },
+    compressionSettings : {
+	ratio : 20,
+	threshold : -24 ,
+	release : 0.25 ,
+	attack : 0.003 ,
+	knee : 30
+    }
 }
 
 var M = Matter;
@@ -93,7 +99,7 @@ function draw() {
     for( let i = 0; i < Obj.length; i++ ) {
 	Obj[i].draw();
     }
-    CollisionHandler.update();
+
     MouseHandler.update();
     KeyHandler.update();
     TickHandler.update();
@@ -108,21 +114,7 @@ function windowResized() {
 function applyGravity() {
     for( let i=0; i < GravityAffectees.length; i++ ) {
 	let b = GravityAffectees[i].body;
-	//M.Body.applyForce(b, { x: b.position.x, y: b.position.y },
-	//		  {x: 0, y: constants.gravityStrength});
+	M.Body.applyForce(b, { x: b.position.x, y: b.position.y },
+			  {x: 0, y: constants.gravityStrength});
     }
-}
-
-function mouseClicked() {
-    let rect = { x: mouseX, y: mouseY };
-    let lilCirclePos = createVector( rect.x + rect.width/2,
-				     rect.y + rect.height/2);
-    let pos = createVector( mouseX,
-			    mouseY )
-    let dir = lilCirclePos.sub(pos)
-    let projPos =  pos.add(dir.mult(constants.launchVelocity))
-    let newProj = new CircleProjectile(projPos.x, projPos.y, World, Obj);
-    M.Body.setVelocity(newProj.body, {x: 2.0, y:2.0})
-    newProj.body.restitution = 2.0;
-    //M.Body.applyForce(newProj.body, projPos , dir)
 }

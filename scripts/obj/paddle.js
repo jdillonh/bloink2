@@ -1,5 +1,16 @@
+
+const WorldObjType = {
+    numVoiceTypes: 2, // circle, circleEmitter
+    numTypes: 3,
+    unset: -1,
+    circleEmmiter: 0,
+    circleProjectile : 1,
+    paddle: 2,
+}
+
 class WorldObj {
     constructor () {
+	this.type = WorldObjType.unset;
 	this.alpha = 1;
 	this.body;
 	this.domElement;
@@ -53,13 +64,19 @@ class WorldObj {
     }
 
     OnMousePickup() {
-	this.domElement.classList.add("active");
-	M.Body.setStatic(this.body, false);
+	let domEl = this.domElement;
+	if( domEl !== null ) {
+	    domEl.classList.add("active");
+	    M.Body.setStatic(this.body, false);
+	}
     }
 
     OnMouseDrop() {
-	this.domElement.classList.remove("active");
-	M.Body.setStatic(this.body, true);
+	let domEl = this.domElement;
+	if( domEl !== null ) {
+	    domEl.classList.remove("active");
+	    M.Body.setStatic(this.body, true);
+	}
     }
 
 }
@@ -68,6 +85,7 @@ class Paddle extends WorldObj {
 
     constructor(x, y, physWorld, Obj) {
 	super();
+	this.type = WorldObjType.paddle;
 	this.w = 80
 	this.h = 30
 	this.domElement.className = "game-object paddle";
