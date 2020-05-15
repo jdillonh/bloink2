@@ -1,19 +1,72 @@
 
 const WorldObjType = {
-    numVoiceTypes: 2, // circle, circleEmitter
+    numVoiceTypes: 4, // circle, circleEmitter
     numTypes: 3,
     unset: -1,
     circleEmmiter: 0,
     circleProjectile : 1,
-    paddle: 2,
+    squareEmmiter: 2,
+    squareProjectile: 3,
+    paddle: 4,
+
+    voiceTypes: [Tone.Synth, Tone.Synth, Tone.Synth, Tone.Synth],
+    voiceOptions: [
+	{
+	    oscillator : {
+		type : "sine",
+	    } ,
+	    envelope : {
+		attack : 0.005 ,
+		decay : 0.1 ,
+		sustain : 0.3 ,
+		release : 1
+	    }
+	},
+	{
+	    oscillator : {
+		type : "triangle"
+	    } ,
+	    envelope : {
+		attack : 0.005 ,
+		decay : 0.1 ,
+		sustain : 0.3 ,
+		release : 1
+	    }
+	},
+	{
+	    oscillator : {
+		type : "sawtooth6"
+	    } ,
+	    envelope : {
+		attack : 0.005 ,
+		decay : 0.1 ,
+		sustain : 0.3 ,
+		release : 1
+	    }
+	},
+	{
+	    oscillator : {
+		type : "sawtooth6"
+	    } ,
+	    envelope : {
+		attack : 0.005 ,
+		decay : 0.1 ,
+		sustain : 0.3 ,
+		release : 1
+	    }
+	}
+
+    ],
 }
+
 
 class WorldObj {
     constructor () {
 	this.type = WorldObjType.unset;
 	this.alpha = 1;
-	this.body;
-	this.domElement;
+	this.body = null;
+	this.domElement = null;
+	this.world = null;
 	this.outline = 10;
 	this.tickable = false; //default
 	this.static = true;
@@ -37,6 +90,7 @@ class WorldObj {
 	else {
 	    this.domElement = null;
 	}
+	this.world = physWorld;
 	this.body = body;
 	this.body.parentObj = this;
 	if( this.static ) {
@@ -54,7 +108,10 @@ class WorldObj {
     }
 
     removeFromWorld() {
-	// TODO
+	M.World.remove(this.world, this.body);
+	if(this.domElement) {
+	    this.domElement.parentNode.removeChild(this.domElement);
+	}
     }
 
     getPosition () {
@@ -113,6 +170,7 @@ class Paddle extends WorldObj {
 	rotate(pos.a);
 	rect(0, 0, this.w + this.outline, this.h + this.outline, this.outline/2);
 	pop()
+	return true;
     }
 
 }

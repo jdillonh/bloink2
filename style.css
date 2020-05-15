@@ -5,7 +5,7 @@ body {
     overflow: hidden;
     padding: 0;
     margin: 0;
-    font-family: sans-serif;
+    font-family: 'Varela Round', sans-serif;
 }
 
 #audio-pls-wrapper {
@@ -16,11 +16,13 @@ body {
     top: 0;
     bottom: 0;
 }
+
 #turn-on-audio-pls {
     position: relative;
     width: 6em;
     padding: 20px;
-    background-color: lightpink;
+    font-size: 30px;
+    background-color: #FFABE5;
     margin: auto;
     top: 50px;
 }
@@ -33,6 +35,37 @@ body {
     background-color: lightgrey;
 }
 
+.modal-wrapper {
+    display: none;
+    position: absolute;
+    width: 100%;
+    z-index: 1100;
+    background-color: #3338;
+    top: 0;
+    bottom: 0;
+}
+
+.modal-inside {
+    z-index: inherit;
+    background-color: #FFABE5;
+    margin: 3em;
+    padding: 3em;
+    max-height: 70%;
+    overflow-y: scroll;
+}
+.modal-exit {
+    position: sticky;
+    float: right;
+    vertical-align: center;
+}
+#how-to-vid {
+    width: 300px;
+}
+
+.part-explain {
+    margin: 10px;
+}
+
 #canvas-wrapper{
     position: absolute;
     top: 0;
@@ -41,7 +74,6 @@ body {
     text-align: center;
     background-color: grey;
     z-index: -10;
-
 }
 
 #game-elements {
@@ -58,7 +90,7 @@ body {
     min-height: 10px;
 }
 .game-object:hover {
-    background-color: pink;
+    background-color: #FFC293;
     cursor: grab;
 }
 
@@ -70,7 +102,7 @@ body {
 
 
 .paddle {
-    background-color: turquoise;
+    background-color: #89DEFF; 
 }
 
 #example-paddle {
@@ -80,14 +112,14 @@ body {
     width: 40px;
     height: 15px;
 
-    background-color: turquoise;
+    background-color: #89DEFF;
     border-radius: 5px;
     border: 3px solid white;
 }
 
 .circle-emitter {
     border-radius: 50%;
-    background-color: teal;
+    background-color: #FFABE5;
 }
 
 .little-circle {
@@ -106,7 +138,7 @@ body {
     height: 40px;
     transform: rotate(60deg);
     border-radius: 50%;
-    background-color: teal;
+    background-color: #FFABE5;
     border: 3px solid white;
     left: -3px;
     top: 1px;
@@ -121,10 +153,39 @@ body {
     background-color: white;
 }
 
-.circle-projectile {
-    /* removed */
-    background-color: red;
+.square-emitter {
+    background-color: #C3E89B;
 }
+
+#example-square-emitter {
+    position: relative;
+    transform: rotate(-20deg);
+    border-radius: 5px;
+    background-color: #C3E89B;
+    left: 4px;
+    width: 28px;
+    height: 28px;
+    border: 3px solid white;
+}
+
+#example-little-square {
+    position: relative;
+    background-color: white;
+    width: 8px;
+    height: 8px;
+    left: 15px;
+    top: 5px;
+}
+
+.little-square {
+    position: relative;
+    width: 15px;
+    height: 15px;
+    top: 10px;
+    left: 10px;
+    background-color: white;
+}
+
 
 .button-shelf {
     pointer-events: none;
@@ -170,9 +231,12 @@ button:focus {outline:0;}
     cursor: grabbing;
 }
 
+#right-buttons-inner {
+    float: right;
+}
+
 #right-buttons button {
     position: relative;
-    float: right;
     z-index: 200;
     display: block;
     margin-top: 2em;
@@ -182,7 +246,6 @@ button:focus {outline:0;}
     height: 75px;
     border-radius: 50%;
     border: 10px solid transparent;
-
 }
 
 #right-buttons button:hover {
@@ -191,6 +254,11 @@ button:focus {outline:0;}
 }
 
 #gear {
+    -webkit-user-select: none; /* Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+
     position: relative;
     right: 1px;
     top: 1px;
@@ -200,6 +268,7 @@ button:focus {outline:0;}
     filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(108deg) brightness(104%) contrast(104%);
     transition: all 0.8s ease-in-out 0s;
     cursor: pointer;
+    pointer-events: none;
 }
 
 #options-button:hover #gear {
@@ -207,8 +276,131 @@ button:focus {outline:0;}
     transition: all 0.8s ease-in-out 0s;
 }
 
+#options-help {
+    color: white;
+    font-family: 'Varela Round', sans-serif;
+    margin: 22px 22px 0px 0px !important;
+    -webkit-user-select: none; /* Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+}
+
+#options-help-inner {
+    font-size: 50px;
+    overflow: hidden;
+    transition: all 0.8s ease-in-out 0s;
+}
+
+#options-help:hover #options-help-inner {
+    transform: rotate(180deg);
+    transition: all 0.8s ease-in-out 0s;
+}
+
+#slider-table td {
+    border-collapse: collapse;
+    border-right: 2px solid white;
+    border-left: 2px solid white;
+    padding: 10px;
+}
+
 svg, path {
     z-index: 0;
     pointer-events: none;
 }
+/* tempo controls */
+input[type="number"] {
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
+    font-family: 'Varela Round', sans-serif;
+    font-size: 18px;
+}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+}
+#tempo-label {
+    position: relative;
+    left: 30px;
+    top: 5px;
+}
 
+#tempo-selector-wrapper {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+}
+#tempo-selector-wrapper * {
+    -webkit-user-select: none; /* Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+}
+
+#tempo-controls {
+    z-index: 200;
+    position: absolute;
+    bottom: 50px;
+    left: 30px;
+    width: auto;
+    padding: 2px;
+    white-space: nowrap;
+    background-color: #FFABE5;
+    border-radius: 5px;
+}
+#tempo-ul {
+    padding: 0px;
+    padding-left: 3px;
+    padding-right: 3px;
+    margin-top: 0px;
+}
+
+#tempo-down {
+    display: inline-block;
+}
+#tempo-input-li {
+    display: inline-block;
+}
+#tempo-up {
+    display: inline-block;
+}
+
+#tempo-input {
+    position: relative;
+    height: 25px;
+    width: 50px;
+    display: inline-block;
+    bottom: 5px;
+}
+
+.arrow {
+    position: relative;
+    top: 10px;
+    pointer-events: hover;
+    z-index: 200;
+}
+
+
+.arrow-left {
+  width: 0; 
+  height: 0; 
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent; 
+  border-right: 20px solid  blue; 
+}
+.arrow-right {
+  width: 0; 
+  height: 0; 
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+  border-left: 20px solid blue;
+}
+
+.arrow-left:active {
+    border-right-color: red;
+}
+
+.arrow-right:active {
+    border-left-color: red;
+}

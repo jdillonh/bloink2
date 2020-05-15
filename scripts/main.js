@@ -1,10 +1,14 @@
 const constants = {
-    maxVelocity : 20, // the max velocity you *expect* 
+    maxVelocity : 25, // the max velocity you *expect* 
     gravityStrength : 0.001,
     launchVelocity : .3,
     rotSpeed : 0.005,
     voicesPerType : 20,
     perVoiceGainSettings : {
+	gain : 0.5 ,
+	convert : true
+    },
+    QGainNodeSettings : {
 	gain : 0.5 ,
 	convert : true
     },
@@ -25,6 +29,7 @@ var colors = [
     "#B8FFF2",
     "#C3E89B",
     "#FFD575",
+    "#FFC293",
 ];
 
 var Engine;
@@ -83,9 +88,6 @@ function setup() {
     ButtonHandler.setup();
     TickHandler.setup();
 
-    for( let i = 0; i < 10; i++ ) {
-	new Paddle(Math.random()*width, Math.random()*height, World, Obj);
-    }
 
     /*
       p5 init
@@ -96,9 +98,12 @@ function setup() {
 function draw() {
     background(colors[1]);
     M.Engine.update(Engine);
-    for( let i = 0; i < Obj.length; i++ ) {
-	Obj[i].draw();
-    }
+    let ave = 0;
+    let numObj = 0;
+
+    Obj = Obj.filter( (e) => {
+	return e.draw();
+    });
 
     MouseHandler.update();
     KeyHandler.update();

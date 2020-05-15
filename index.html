@@ -3,23 +3,123 @@
 <html lang="en">
     <head>
 	<meta charset="utf-8">
-
-	<title>bloink 2</title>
+	<title>bloink2</title>
 	<meta name="description" content="The HTML5 Herald">
 	<meta name="author" content="SitePoint">
-
+	<link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="style.css">
-
     </head>
-
 
     <body>
 	<div id="audio-pls-wrapper">
 	    <div id="turn-on-audio-pls">
-		Bloink 2 requires audio is that ok? <br>
+		bloink2 requires audio is that ok? <br>
 		<button id="audio-pls-button">OK</button>
 	    </div>
 	</div>
+	<div id="options-screen-wrapper" class="modal-wrapper">
+	    <div id="options-screen" class="modal-inside">
+		<button id="options-screen-exit" class="modal-exit">&times;</button>
+		<h1> options </h1>
+		Volume Levels:
+		<table id="slider-table">
+		    <tr>
+			<td>
+			    <p> circle projectiles </p>
+			    <input type="range" min="0" max="100" value="100"
+				   class="gainSlider" id="cp-gain">
+			</td>
+			<td>
+			    <p> square projectiles</p>
+			    <input type="range" min="0" max="100" value="100"
+				   class="gainSlider" id="sp-gain">
+			</td>
+			<td>
+			    <p> circle emitter </p>
+			    <input type="range" min="0" max="100" value="100"
+				   class="gainSlider" id="ce-gain">
+			</td>
+			<td>
+			    <p> square emitter </p>
+			    <input type="range" min="0" max="100" value="100"
+				   class="gainSlider" id="se-gain">
+			</td>
+		    </tr>
+		</table>
+
+	    </div>
+	</div>
+	<div id="help-screen-wrapper" class="modal-wrapper">
+	    <div id="help-screen" class="modal-inside">
+		<button id="help-screen-exit" class="modal-exit">&times;</button>
+		<h1> help </h1>
+		<p>
+		    bloink2 is a game about making music by causing things to
+		    run into each other.
+		</p>
+		<p>
+		    <video loop="true"  id="how-to-vid">
+			<source src="assets/bloink-how-to.mp4" type="video/mp4">
+		    </video>
+		<p id="next-to-vid">
+		    <em> Click and Drag </em> to make a new object or move an existing one,
+		    Use the <em> Scroll Wheel </em> to rotate objects.
+		</p>
+		<p>
+		    Press <em> x </em> to clear projectiles. <br>
+		    Press <em> c </em> to clear everything.
+		</p>
+
+		<p>
+		    <div id="example-paddle"> </div>  
+		    <div class="part-explain">
+			The <em> paddle </em> is just here to get hit. <br>
+			It makes no sound when hit.
+		    </div>
+		</p>
+		<p>
+		    <div id="example-circle-emitter">
+			<div id="example-little-circle">
+			</div>
+		    </div>
+
+		    <div class="part-explain">
+			The <em> Circle Emitter </em> shoots circle projectiles. <br>
+			It makes a low, round sound when hit.
+		    </div>
+		</p>
+		<p>
+		    <div id="example-square-emitter">
+			<div id="example-little-square">
+			</div>
+		    </div>
+
+		    <div class="part-explain">
+			The <em> Square Emitter </em> shoots square projectiles. <br>
+			It makes a low, buzzy sound when hit.
+		    </div>
+		</p>
+		
+		<p>
+		    <div id="example-little-circle">
+		    </div>
+		    <div class="part-explain">
+			The <em> Circle Projectile </em> comes from the circle emitter. <br>
+			It is effected by gravity, and makes a high, round sound on impact.
+		    </div>
+		</p>
+		<p>
+		    <div id="example-little-square">
+		    </div>
+		    <div class="part-explain">
+			The <em> Square Projectile </em> comes from the square emitter. <br>
+			It is effected by gravity, and makes a high, buzzy sound on impact.
+		    </div>
+		</p>
+
+	    </div>
+	</div>
+
 	<div class="button-shelf" id="left-buttons">
 	    <button id="paddle-button">
 		<div id="example-paddle">
@@ -31,18 +131,39 @@
 		    </div>
 		</div>
 	    </button>
-	    <button>
-		3
-	    </button>
-	    <button>
-		4
+	    <button id="square-emitter-button">
+		<div id="example-square-emitter">
+		    <div id="example-little-square">
+		    </div>
+		</div>
 	    </button>
 	</div>
 	<div class="button-shelf" id="right-buttons">
-	    <button id="options-button">
-		<object id="gear" data="assets/gear.svg" alt="options">
-		</object>
-	    </button>
+	    <div id="right-buttons-inner">
+		<button id="options-button">
+		    <object id="gear" data="assets/gear.svg" alt="options">
+		    </object>
+		</button>
+		<button id="options-help">
+		    <div id="options-help-inner">
+			?
+		    </div>	
+		</button>
+	    </div>
+	</div>
+	<div id="tempo-selector-wrapper">
+	    <div id="tempo-controls">
+		<div id="tempo-label">tempo</div>
+		<ul id="tempo-ul"> 
+		    <li id="tempo-down" class="arrow-left arrow">
+		    </li>
+		    <li id="tempo-input-li">
+			<input id="tempo-input" type="number" step="5" value="120">
+		    </li>
+		    <li id="tempo-up" class="arrow-right arrow">
+		    </li>
+		</ul>
+	    </div>
 	</div>
 	<div id="game-elements">
 	</div>
@@ -53,8 +174,10 @@
     <script src="lib/p5.min.js"></script>
     <script src="lib/matter.min.js"></script>
     <script src="lib/tone.min.js"></script>
+
     <script src="scripts/obj/paddle.js"></script>
     <script src="scripts/obj/circleEmitter.js"></script>
+    <script src="scripts/obj/squareEmitter.js"></script>
     <script src="scripts/mouse.js"></script>
     <script src="scripts/KeyHandler.js"></script>
     <script src="scripts/CollisionHandler.js"></script>

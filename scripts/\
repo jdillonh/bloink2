@@ -8,12 +8,11 @@ var CollisionHandler = {
 	M.Events.on(Engine, 'collisionStart', function(event) {
 	    let bodyA = event.pairs[0].bodyA
 	    let bodyB = event.pairs[0].bodyB
-	    /* let velocity =
-	       [bodyA.velocity.x, bodyA.velocity.y,
-	       bodyB.velocity.x , bodyB.velocity.y]
-	       .map(Math.abs)
-	       .reduce((a,b)=>a+b,0)
-	    */
+	    let velocity =
+		[bodyA.velocity.x, bodyA.velocity.y,
+		 bodyB.velocity.x , bodyB.velocity.y]
+		.map(Math.abs)
+		.reduce((a,b)=>a+b,0)
 
 	    ch.makeNote(bodyA, Math.abs(bodyA.velocity.x)
 			+ Math.abs(bodyA.velocity.y));
@@ -25,29 +24,38 @@ var CollisionHandler = {
     makeNote : function (bodyA, vel) {
 	let obj = bodyA.parentObj
 	if( obj.type >= WorldObjType.numVoiceTypes ) {
+	    console.log('not this one');
 	    return;
 	}
-
-	let midiNote = map(vel, 0, constants.maxVelocity, 40, 80,
-			   false /*stays in bound*/ );
+	let midiNote = map(vel, 0, constants.maxVelocity, 50, 65,
+			   true /*stays in bound*/ );
 	midiNote = mtof(quantize(midiNote));
-	this.voiceQueues[obj.type].playNote(midiNote);
+	this.voiceQueues[1].playNote(midiNote);
+	/*switch(obj.type) {
+	  case WorldObjType.circleEmmiter:
+	  this.voiceQueues[obj.type].playNote(60);
+	  break;
+	  case WorldObjType.circle:
+	  this.voiceQueues[obj.type].playNote(60);
+	  break;
+
+	  default:
+	  break;
+
+	  }*/
     }
 }
 
-function makeAllVoiceQueues(CollHand, connectionPoint ) {
-    let wot = WorldObjType;
-    for( let i = 0; i < wot.numVoiceTypes; i++ ) {
-	CollHand.voiceQueues[i] =
-	    makeVoiceQueue( wot.voiceTypes[i],
-			    connectionPoint,
-			    i );
-    }
+function makeAllVoiceQueues(CollHand, connectionPoint) {
+    CollHand.voiceQueues[WorldObjType.circleEmmiter] =
+	makeVoiceQueue( Tone.Synth, connectionPoint);
+
+    CollHand.voiceQueues[WorldObjType.circleProjectile] =
+	makeVoiceQueue( Tone.Synth, connectionPoint);
 }
 
-function makeVoiceQueue(voiceType, connectionPoint, typeNum) {
+function makeVoiceQueue(voiceType, connectionPoint) {
     let Q = {
-	localNode: new Tone.Gain(constants.QGainNodeSettings),
 	numVoices: constants.voicesPerType,
 	currVoice: 0,
 	voices: [],
@@ -56,16 +64,16 @@ function makeVoiceQueue(voiceType, connectionPoint, typeNum) {
 	    this.voices[this.currVoice].triggerAttackRelease(p, '8n');
 	},
     }
-    Q.localNode.connect(connectionPoint);
     for( let i = 0; i < Q.numVoices; i++ ) {
-	let newVoice = new voiceType(WorldObjType.voiceOptions[typeNum]);
+	let newVoice = new voiceType()
 	let gainNode = new Tone.Gain(constants.perVoiceGainSettings);
 	newVoice.connect(gainNode);
-	gainNode.connect(Q.localNode);
+	gainNode.connect(connectionPoint);
 	Q.voices.push(newVoice); 
     }
     return Q
 }
+
 
 function setupAudioContext() {
     let wrap = document.getElementById("audio-pls-wrapper");
@@ -74,7 +82,7 @@ function setupAudioContext() {
     button.onclick = async () => {
 	removeElement(wrap);
 	await Tone.start();
-	console.log("Audio Context Initialized");
+	console.log("audio context initialized");
 	let comp = new Tone.Compressor(constants.compressionSettings)
 	comp.toMaster();
 	makeAllVoiceQueues(CollisionHandler, comp);

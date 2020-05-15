@@ -3,10 +3,10 @@ var KeyHandler = {
 	document.addEventListener( "keydown", event => {
 	    switch(event.keyCode) {
 	    case 67: // c
-		console.log('C pressed');
-		new CircleEmitter(width * Math.random(),
-				  height * Math.random(),
-				  World, Obj);
+		clearProjectiles();
+		break;
+	    case 88: //x
+		clearEverything();
 		break;
 	    }
 	})
@@ -17,3 +17,20 @@ var KeyHandler = {
     }
 }
 
+function clearEverything() {
+    Obj.forEach( o => {
+	o.removeFromWorld();
+    });
+    Obj = [];
+}
+
+function clearProjectiles() {
+    Obj = Obj.filter( (o) => {
+	if( o.type === WorldObjType.circleProjectile ||
+	    o.type === WorldObjType.squareProjectile ) {
+	    o.removeFromWorld();
+	    return false;
+	}
+	return true;
+    })
+}

@@ -50,6 +50,8 @@ class CircleEmitter extends WorldObj {
 	rotate(pos.a);
 	circle(0, 0, this.rad + this.outline);
 	pop()
+
+	return true;
     }
 
 }
@@ -79,6 +81,13 @@ class CircleProjectile extends WorldObj {
     }
 
     draw() {
-	circle(this.body.position.x, this.body.position.y, this.rad*2);
+	let x = this.body.position.x;
+	let y = this.body.position.y;
+	circle(x, y, this.rad*2);
+	if( y > window.innerHeight ) {
+	    this.removeFromWorld();
+	    return false;
+	}
+	return true;
     }
 }
